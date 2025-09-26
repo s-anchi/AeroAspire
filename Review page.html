@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RESTRUANTS TO SELECT</title>
+  <style>
+    body{
+        background-image: url("background_image2.jpg");
+    }
+    .container{
+        height: auto;
+        display: flex;
+        gap:20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .card {
+    display: block;
+    flex: 1 1 250px;
+    max-width: 300px;
+    min-width: 150px;
+    box-sizing: border-box;
+    padding: 50px;
+    text-align: center;
+    background-color: white;
+    text-decoration: none;     
+    color: black;              
+    border-radius: 10px;
+    transition: transform 0.2s, background-color 0.3s;
+}
+.card:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.03);
+    cursor: pointer;
+}
+    </style>
+    </head>
+    <body>
+    <h1 style="text-align: center;"><b><i>RESTRUANTS TO SELECT TO REVIEW</i></b></h1>
+        <div class="container">
+  <a href="restaurant1.html" class="card">RESTAURANT 1</a>
+  <a href="restaurant2.html" class="card">RESTAURANT 2</a>
+  <a href="restaurant3.html" class="card">RESTAURANT 3</a>
+  <a href="restaurant4.html" class="card">RESTAURANT 4</a>
+  <a href="restaurant5.html" class="card">RESTAURANT 5</a>
+  <a href="others.html" class="card">OTHER RESTAURANTS</a>
+    </div>
+    </body>
+</html>

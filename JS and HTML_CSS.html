@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FOODVLOGSSS INFO!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-image: url(background_image2.jpg);
+    }
+    #toggleSection {
+      color: black;
+    }
+    h1{
+        font-size: 50px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1><marquee><b><i>WELCOME TO FOODVLOGSSS</i></b></marquee></h1>
+  <h2 id="greeting"></h2>
+  <p>Check the terms and conditions before submitting your info!</p>
+  <button onclick="toggleSection()">T&C</button>
+  <div id="toggleSection">
+    <p>1.The information which you will submit will be stored in our database to sync it with the review that you might submit in the future</p>
+    <p>2.It will not be shared anywhere else.</p>
+    <p>3.You can submit your info only once.</p>
+    <p>4.If you want to change your info you can contact us through email.</p>
+  </div>
+  <h3>FILL OUT THE INFO!</h3>
+  <form id="contactForm">
+    <label>
+      Name:
+      <input type="text" id="name" required>
+    </label>
+    <br><br>
+    <label>
+      Email:
+      <input type="email" id="email" required>
+    </label>
+    <br><br
+    <label>
+      Review:
+      <input type="review" id="review" required>
+    </label>
+    <br><br>
+    <button type="submit">Submit</button>
+    <div id="formErrors" class="error"></div>
+  </form>
+  <div id="submittedData"></div>
+
+  <script>
+    function setGreeting() {
+      const hour = new Date().getHours();//get current time 
+      const greetingEl = document.getElementById('greeting');
+      let greetingText = "Hello!";//default
+      if (hour < 12) {
+        greetingText = "Good morning foodiess!";//before 12pm
+      } else if (hour < 16) {
+        greetingText = "Good afternoon foodiess!";//before 4pm
+      } else {
+        greetingText = "Good evening foodiess!";//after 4pm
+      }
+      greetingEl.textContent = greetingText;
+    }
+
+    function toggleSection() {
+      const section = document.getElementById('toggleSection');
+      section.style.display = (section.style.display === 'none') ? 'block' : 'none';
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const errorDiv = document.getElementById('formErrors');
+      const submittedData = document.getElementById('submittedData');
+      errorDiv.textContent = '';
+
+      if (!name || !email) {
+        errorDiv.textContent = 'Please enter both name and email.';//if info not entered
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;//email validation
+      if (!emailRegex.test(email)) {
+        errorDiv.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      submittedData.innerHTML = `
+        <h4>Submitted Info:</h4>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Review:</strong> ${document.getElementById('review').value.trim()}</p>
+      `;//to display the submitted info
+
+      document.getElementById('contactForm').reset();// to reset the form
+    });
+
+    // Init greeting
+    setGreeting();//calling function to display the greeting
+  </script>
+
+</body>
+</html>
