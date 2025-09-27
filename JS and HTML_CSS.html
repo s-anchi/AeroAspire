@@ -43,16 +43,12 @@
       Email:
       <input type="email" id="email" required>
     </label>
-    <br><br
-    <label>
-      Review:
-      <input type="review" id="review" required>
-    </label>
     <br><br>
     <button type="submit">Submit</button>
     <div id="formErrors" class="error"></div>
   </form>
   <div id="submittedData"></div>
+  <a href="Review page.html"><button>Go to Review Page</button></a>
 
   <script>
     function setGreeting() {
@@ -98,7 +94,6 @@
         <h4>Submitted Info:</h4>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Review:</strong> ${document.getElementById('review').value.trim()}</p>
       `;//to display the submitted info
 
       document.getElementById('contactForm').reset();// to reset the form
