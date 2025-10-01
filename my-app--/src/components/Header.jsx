@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 const Header = () => {
   return (
-    <AppBar position="dynamic">
+    <AppBar position="fixed">
       <Toolbar>
         <Typography variant="h6" component="div">
           FOODVLOGGSS
