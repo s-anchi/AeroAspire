@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodVloggss - Food Reviews</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🍔 FoodVloggss</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Add Review</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+    <main>
+        <section class="review-form">
+            <h2>Add Your Review</h2>
+            <form id="addReviewForm">
+                <input type="text" id="restaurant" placeholder="Restaurant Name" required>
+                <input type="text" id="dish" placeholder="Dish Name" required>
+                <textarea id="review" placeholder="Your Review" rows="3" required></textarea>
+                <input type="number" id="rating" placeholder="Rating (1-5)" min="1" max="5" required>
+                <button type="submit">Submit Review</button>
+            </form>
+        </section>
+        <section class="reviews-list">
+            <h2>Food Reviews</h2>
+            <div id="reviewsContainer">
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 FoodVloggss. All rights reserved.</p>
+    </footer>
+    <script>
+        const form = document.getElementById('addReviewForm');
+        const reviewsContainer = document.getElementById('reviewsContainer');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const restaurant = document.getElementById('restaurant').value;
+            const dish = document.getElementById('dish').value;
+            const review = document.getElementById('review').value;
+            const rating = document.getElementById('rating').value;
+
+            const reviewCard = document.createElement('div');
+            reviewCard.classList.add('review-card');
+            reviewCard.innerHTML = `
+                <h3>${dish} at ${restaurant}</h3>
+                <p>${review}</p>
+                <p class="rating">Rating: ${'⭐'.repeat(rating)}</p>
+            `;
+
+            reviewsContainer.prepend(reviewCard);
+            form.reset();
+        });
+    </script>
+</body>
+</html>
