@@ -1,0 +1,60 @@
+from flask import Blueprint, jsonify, request
+
+main = Blueprint('main', __name__)
+
+# Dummy in-memory storage
+tasks = [
+    {"id": 1, "title": "Add Review", "completed": False},
+    {"id": 2, "title": "Give Rating", "completed": True}
+]
+
+@main.route('/')
+def home():
+    return "Welcome To FOODVLOGGSS!!"
+
+# GET /tasks (with optional ?completed=true/false filter)
+@main.route('/tasks', methods=['GET'])
+def get_tasks():
+    completed_filter = request.args.get('completed')
+    if completed_filter is not None:
+        # Convert string to bool
+        completed_filter = completed_filter.lower() == 'true'
+        filtered_tasks = [task for task in tasks if task.get("completed") == completed_filter]
+        return jsonify(filtered_tasks)
+    return jsonify(tasks)
+
+# POST /tasks
+@main.route('/tasks', methods=['POST'])
+def add_task():
+    data = request.get_json()
+    if not data or "title" not in data:
+        return jsonify({"error": "Task title is required"}), 400
+
+    new_task = {
+        "id": len(tasks) + 1,
+        "title": data["title"],
+        "completed": data.get("completed", False)
+    }
+    tasks.append(new_task)
+    return jsonify(new_task), 201
+
+# PUT /tasks/<id>  → update title/completed
+@main.route('/tasks/<int:task_id>', methods=['PUT'])
+def update_task(task_id):
+    data = request.get_json()
+    for task in tasks:
+        if task["id"] == task_id:
+            task["title"] = data.get("title", task["title"])
+            if "completed" in data:
+                task["completed"] = data["completed"]
+            return jsonify(task)
+    return jsonify({"error": "Task not found"}), 404
+
+# DELETE /tasks/<id>
+@main.route('/tasks/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+    for task in tasks:
+        if task["id"] == task_id:
+            tasks.remove(task)
+            return jsonify({"message": f"Task {task_id} deleted successfully"})
+    return jsonify({"error": "Task not found"}), 404

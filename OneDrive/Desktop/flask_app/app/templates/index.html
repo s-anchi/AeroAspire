@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodVloggss - Food Reviews</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 <body>
     <header>
@@ -36,27 +37,49 @@
         <p>© 2025 FoodVloggss. All rights reserved.</p>
     </footer>
     <script>
-        const form = document.getElementById('addReviewForm');
-        const reviewsContainer = document.getElementById('reviewsContainer');
+    const form = document.getElementById('addReviewForm');
+    const reviewsContainer = document.getElementById('reviewsContainer');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const restaurant = document.getElementById('restaurant').value;
-            const dish = document.getElementById('dish').value;
-            const review = document.getElementById('review').value;
-            const rating = document.getElementById('rating').value;
+    // Fetch reviews when the page loads
+    async function loadReviews() {
+        const response = await fetch('/tasks');
+        const reviews = await response.json();
 
-            const reviewCard = document.createElement('div');
-            reviewCard.classList.add('review-card');
-            reviewCard.innerHTML = `
-                <h3>${dish} at ${restaurant}</h3>
-                <p>${review}</p>
-                <p class="rating">Rating: ${'⭐'.repeat(rating)}</p>
+        reviewsContainer.innerHTML = ''; // Clear container
+        reviews.reverse().forEach(r => {
+            const card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = `
+                <h3>${r.dish} at ${r.restaurant}</h3>
+                <p>${r.review}</p>
+                <p class="rating">Rating: ${'⭐'.repeat(r.rating)}</p>
             `;
-
-            reviewsContainer.prepend(reviewCard);
-            form.reset();
+            reviewsContainer.appendChild(card);
         });
-    </script>
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = {
+            restaurant: document.getElementById('restaurant').value,
+            dish: document.getElementById('dish').value,
+            review: document.getElementById('review').value,
+            rating: parseInt(document.getElementById('rating').value)
+        };
+
+        await fetch('/tasks', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        form.reset();
+        loadReviews(); // refresh list
+    });
+
+    // Load reviews on startup
+    loadReviews();
+</script>
 </body>
 </html>
