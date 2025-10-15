@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import date
 
 db = SQLAlchemy()
 
@@ -7,12 +7,10 @@ class Task(db.Model):
     __tablename__ = 'tasks'
     
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
-    status = db.Column(db.String(50), default='pending')
-    due_date = db.Column(db.Date)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
+    status = db.Column(db.String(20), default='pending')
+    due_date = db.Column(db.Date, default=date.today)
+    
     def __repr__(self):
-        return f"<Task {self.id} - {self.title}>"
+        return f"<Task {self.title}>"
