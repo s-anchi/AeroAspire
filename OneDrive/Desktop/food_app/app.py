@@ -30,13 +30,16 @@ with app.app_context():
     db.create_all()
 
 # ------------------ ROUTES ------------------ #
-
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# API endpoint: GET reviews with filters + search + pagination
-@app.route('/api/reviews', methods=['GET'])
+# ------------------ VERSIONED API V1 ------------------ #
+
+API_PREFIX = '/api/v1'
+
+# GET reviews with filters + search + pagination
+@app.route(f'{API_PREFIX}/reviews', methods=['GET'])
 def get_reviews():
     query = FoodReview.query
 
@@ -67,8 +70,8 @@ def get_reviews():
         "reviews": reviews
     })
 
-# API endpoint: POST add review
-@app.route('/api/reviews', methods=['POST'])
+# POST add review
+@app.route(f'{API_PREFIX}/reviews', methods=['POST'])
 def add_review():
     data = request.get_json()
     new_review = FoodReview(
