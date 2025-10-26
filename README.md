@@ -39,4 +39,24 @@ Control+X- To exit
 Create Dockerfile in both backend and frontend
 >>backend/Dockerfile
 >>frontend/Dockerfile
- 
+Created a docker-compose.yml file
+>>to run both the Dockerfile/backend and Dockerfile/frontend simultaneously
+>>docker compose up --build(command to build the docker)
+Faced errors, because Docker desktop was not running before using the command.
+.env file used to store all the secrets like DB_NAME,DB_PASSWORD etc
+Used to stop all containers that are not used or running
+>>docker container prune
+To delete all the unused images
+>>docker image prune
+To see all logs
+```bash
+docker compose logs
+
+To clean completely
+```bash
+docker system prune -a
+
+Local Testing & Maintenance
+
+```bash
+docker compose up --build
