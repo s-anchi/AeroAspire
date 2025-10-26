@@ -7,3 +7,36 @@
 <img width="1071" height="526" alt="image" src="https://github.com/user-attachments/assets/e87feb34-de62-4fa0-9f4a-80ba2846f9a3" />
 <header.jsx> reuseable component may contain search bars,navigation etc
 <home.jsx> has the main content of the app
+#WEEK 5
+Installed multipass,docker desktop and oracle virtual
+To check multipass version 
+>>multipass version
+To launch new instance
+>>multipass launch
+To list the instances
+>>multipass list
+To lanuch the shell in the instace
+>>multipass shell <instance_name>
+To stop an instance
+>>multipass stop <instance_name>
+To create a few file in ubuntu
+>>touch <file_name>
+to make a new directory
+>>mkdir <directory_name>
+To change the directory
+>>cd <directory_name>
+To update the package
+>>sudo apt update
+To install python,git,curl,net-tools
+>>sudo apt install python3 -y
+>>sudo apt install git -y
+>>sudo apt install curl -y
+>>sudo apt install net-tools -y
+to create and open a python file
+>>nano <filename.py>
+Control+O- To save
+Control+X- To exit
+Create Dockerfile in both backend and frontend
+>>backend/Dockerfile
+>>frontend/Dockerfile
+ 
